@@ -42,6 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementer\Checkout.cs" />
+    <Compile Include="Model\AddItemOffer.cs" />
+    <Compile Include="Model\DiscountPriceOffer.cs" />
+    <Compile Include="Model\IOffer.cs" />
     <Compile Include="Model\Item.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
