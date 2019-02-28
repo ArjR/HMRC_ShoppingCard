@@ -141,6 +141,28 @@ namespace UnitTestProject1
         }
 
         [TestMethod]
+        public void OfferAppleTest()
+        {
+            var checkout = CreateAppleOrangeCheckoutWithOffers();
+            var success = checkout.ScanItems("Apple, Apple, Apple, Apple");
+            var total = checkout.CalculateTotal();
+
+            Assert.IsTrue(success);
+            Assert.IsTrue(total == (0.6M + 0.6M));
+        }
+
+        [TestMethod]
+        public void OfferOrangeTest()
+        {
+            var checkout = CreateAppleOrangeCheckoutWithOffers();
+            var success = checkout.ScanItems("Orange, Orange, Orange");
+            var total = checkout.CalculateTotal();
+
+            Assert.IsTrue(success);
+            Assert.IsTrue(total == (0.25M + 0.25M));
+        }
+
+        [TestMethod]
         public void OfferMainNameTest3()
         {
             var checkout = CreateAppleOrangeCheckoutWithOffers();

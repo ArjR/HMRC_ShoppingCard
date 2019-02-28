@@ -99,7 +99,7 @@ namespace ShoppingCart.Implementer
                     }
                     else
                     {
-                        // Should throw an application exception here
+                        // TODO: Should throw an application exception/error here since IOffer isn't handled
                     }
 
                     totalPrice += postOfferItemCount * itemType.Key.Price;
