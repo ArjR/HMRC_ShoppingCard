@@ -8,6 +8,6 @@ namespace ShoppingCart.Model
         public string Name { get; set; }
         public decimal Price { get; set; }
 
-        public List<IOffer> Offers { get; set; } = new List<IOffer>(); // Maybe multiple offers can be applied?
+        public IOffer Offer { get; set; }
     }
 }

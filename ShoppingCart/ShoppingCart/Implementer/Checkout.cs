@@ -65,7 +65,45 @@ namespace ShoppingCart.Implementer
 
             foreach (var itemType in _scannedItems)
             {
-                totalPrice += itemType.Key.Price * itemType.Value;
+                var offer = itemType.Key.Offer;
+
+                // Take into account offers first
+                if (offer == null)
+                {
+                    totalPrice += itemType.Value * itemType.Key.Price;
+                }
+                else
+                {
+                    var preOfferItemCount = itemType.Value;
+                    var postOfferItemCount = 0;
+
+                    if (offer is AddItemOffer)
+                    {
+                        var addItemOffer = offer as AddItemOffer;
+                        var offerItemCount = addItemOffer.MinItem + addItemOffer.AddItem;
+                        var amountOfOffers = preOfferItemCount / offerItemCount;
+                        postOfferItemCount = preOfferItemCount - (amountOfOffers * offerItemCount);
+
+                        var newCount = (amountOfOffers * offerItemCount) - (amountOfOffers * addItemOffer.AddItem);
+
+                        totalPrice += newCount * itemType.Key.Price;
+                    }
+                    else if (offer is DiscountPriceOffer)
+                    {
+                        var discountPriceOffer = offer as DiscountPriceOffer;
+                        var amountOfOffers = preOfferItemCount / discountPriceOffer.MinItem;
+
+                        postOfferItemCount = preOfferItemCount - (amountOfOffers * discountPriceOffer.MinItem);
+
+                        totalPrice += amountOfOffers * discountPriceOffer.DiscountPrice;
+                    }
+                    else
+                    {
+                        // Should throw an application exception here
+                    }
+
+                    totalPrice += postOfferItemCount * itemType.Key.Price;
+                }
             }
 
             return totalPrice;

@@ -36,7 +36,7 @@ namespace UnitTestProject1
             appleOffer.MinItem = 1;
             appleOffer.AddItem = 1;
 
-            apple.Offers.Add(appleOffer);
+            apple.Offer = appleOffer;
 
             Item orange = new Item();
             orange.ID = 2;
@@ -47,7 +47,7 @@ namespace UnitTestProject1
             orangeOffer.MinItem = 3;
             orangeOffer.DiscountPrice = 2 * orange.Price;
 
-            orange.Offers.Add(orangeOffer);
+            orange.Offer = orangeOffer;
 
             var checkout = new Checkout(new List<Item>() { apple, orange });
 
@@ -137,7 +137,18 @@ namespace UnitTestProject1
             var total = checkout.CalculateTotal();
 
             Assert.IsTrue(success);
-            Assert.IsTrue(total == (0.6M + 0.6M + 0.25M + 0.25M + 0.6M + 0.25M));
+            Assert.IsTrue(total == (0.6M + 0.6M + 0.6M + 0.25M + 0.25M + 0.25M));
+        }
+
+        [TestMethod]
+        public void OfferMainNameTest3()
+        {
+            var checkout = CreateAppleOrangeCheckoutWithOffers();
+            var success = checkout.ScanItems("Apple, Orange");
+            var total = checkout.CalculateTotal();
+
+            Assert.IsTrue(success);
+            Assert.IsTrue(total == (0.6M + 0.25M));
         }
     }
 }
