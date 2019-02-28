@@ -35,5 +35,58 @@ namespace UnitTestProject1
             Assert.IsTrue(success);
             Assert.IsTrue(total == 2.05M);
         }
+
+        [TestMethod]
+        public void MainIdTest()
+        {
+            var checkout = CreateAppleOrangeCheckout();
+            var success = checkout.ScanItems("1, 1, 2, 1");
+            var total = checkout.CalculateTotal();
+
+            Assert.IsTrue(success);
+            Assert.IsTrue(total == 2.05M);
+        }
+
+        [TestMethod]
+        public void SingleItemTest1()
+        {
+            var checkout = CreateAppleOrangeCheckout();
+            var success = checkout.ScanItems("Apple");
+            var total = checkout.CalculateTotal();
+
+            Assert.IsTrue(success);
+            Assert.IsTrue(total == 0.60M);
+        }
+
+        [TestMethod]
+        public void SingleItemTest2()
+        {
+            var checkout = CreateAppleOrangeCheckout();
+            var success = checkout.ScanItems("Orange");
+            var total = checkout.CalculateTotal();
+
+            Assert.IsTrue(success);
+            Assert.IsTrue(total == 0.25M);
+        }
+
+        [TestMethod]
+        public void BadItemTest1()
+        {
+            var checkout = CreateAppleOrangeCheckout();
+            var success = checkout.ScanItems("Orange, Bin");
+            var total = checkout.CalculateTotal();
+
+            Assert.IsFalse(success);
+        }
+
+        [TestMethod]
+        public void BadItemTest2()
+        {
+            var checkout = CreateAppleOrangeCheckout();
+            var success = checkout.ScanItems("Jack");
+            var total = checkout.CalculateTotal();
+
+            Assert.IsFalse(success);
+        }
     }
 }
