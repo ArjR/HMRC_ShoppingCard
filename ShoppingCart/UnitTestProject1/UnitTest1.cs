@@ -24,5 +24,16 @@ namespace UnitTestProject1
 
             return checkout;
         }
+
+        [TestMethod]
+        public void MainNameTest()
+        {
+            var checkout = CreateAppleOrangeCheckout();
+            var success = checkout.ScanItems("Apple, Apple, Orange, Apple");
+            var total = checkout.CalculateTotal();
+
+            Assert.IsTrue(success);
+            Assert.IsTrue(total == 2.05M);
+        }
     }
 }

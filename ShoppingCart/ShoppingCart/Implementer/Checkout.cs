@@ -34,7 +34,7 @@ namespace ShoppingCart.Implementer
                 // Ensure item is part of scanned items
                 if (!_scannedItems.ContainsKey(item))
                 {
-                    _scannedItems.Add(item, 1);
+                    _scannedItems.Add(item, 0);
                 }
 
                 // Add Item to Scanned Items
